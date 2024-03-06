@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CarouselViewBugAndroid.CarouselOnePage"
+             xmlns:local="clr-namespace:CarouselViewBugAndroid"
+             xmlns:behaviors="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:DataType="local:CarouselOneViewModel">
+    <ContentPage.Behaviors>
+        <behaviors:EventToCommandBehavior
+            x:DataType="local:CarouselOneViewModel"
+            EventName="Appearing"
+            Command="{Binding PageAppearingCommand}" />
+    </ContentPage.Behaviors>
+
+    <ContentPage.Resources>
+        <DataTemplate x:Key="CustomCategoryTemplate" x:DataType="local:CustomCategory">
+            <Label Text="{Binding Name}" />
+        </DataTemplate>
+        <DataTemplate x:Key="CustomPageTemplate" x:DataType="local:CustomPage">
+            <VerticalStackLayout>
+                <Label Text="{Binding Id}"></Label>
+                <Label Text="{Binding PageName}"></Label>
+                <Label Text="{Binding PageContent}"></Label>
+                <Label>
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="I have "></Span>
+                            <Span Text="{Binding WordsLength}"></Span>
+                            <Span Text=" words."></Span>
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+                <Label Text="{Binding PageContent}"></Label>
+                <Label Text="{Binding Id}" Margin="0,10,0,0"></Label>
+                <Label Text="{Binding PageName}"></Label>
+                <Label Text="{Binding PageContent}"></Label>
+                <Image
+                    Source="dotnet_bot.png"
+                    HeightRequest="185"
+                    Aspect="AspectFit"
+                    SemanticProperties.Description="dot net bot in a race car number eight" />
+
+                <ListView ItemsSource="{Binding Categories}" Margin="0,20,0,0"
+                          ItemTemplate="{StaticResource CustomCategoryTemplate}" />
+
+                <Image Margin="0,20,0,0"
+                       Source="dotnet_bot.png"
+                       HeightRequest="185"
+                       Aspect="AspectFit"
+                       SemanticProperties.Description="dot net bot in a race car number eight" />
+            </VerticalStackLayout>
+        </DataTemplate>
+    </ContentPage.Resources>
+    <ScrollView Margin="10">
+        <VerticalStackLayout>
+            <Label Text="Hello" VerticalOptions="Center"
+                   HorizontalOptions="Start" />
+            <IndicatorView
+                x:Name="IndicatorView"
+                IndicatorColor="Yellow"
+                SelectedIndicatorColor="Red"
+                HorizontalOptions="Start"
+                VerticalOptions="Center" />
+
+            <CarouselView Margin="20"
+                          IndicatorView="IndicatorView"
+                          Loop="false"
+                          ItemsSource="{Binding Pages}"
+                          ItemTemplate="{StaticResource CustomPageTemplate}" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
